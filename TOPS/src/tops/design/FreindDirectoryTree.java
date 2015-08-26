@@ -2,7 +2,6 @@ package tops.design;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.util.StringTokenizer;
 
 import javax.swing.JList;
@@ -15,8 +14,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.ExpandVetoException;
 import javax.swing.tree.TreePath;
 
-import tops.main.*;
-
 public class FreindDirectoryTree implements TreeWillExpandListener,
 		TreeSelectionListener {
 	JTree tree = null;
@@ -24,10 +21,10 @@ public class FreindDirectoryTree implements TreeWillExpandListener,
 	String rootPath = null;
 //	int myPortNumber = 0;
 	ListSetting LS = null;
-	JList list = null;
+	JList<?> list = null;
 
 	public FreindDirectoryTree(JTree tree, DefaultMutableTreeNode root,
-			String rootPath, JList list) {
+			String rootPath, JList<?> list) {
 		this.tree = tree;
 		this.root = root;
 		this.rootPath = rootPath;

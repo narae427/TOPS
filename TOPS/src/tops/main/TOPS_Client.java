@@ -9,7 +9,6 @@ import java.util.regex.*;
 import javax.swing.*;
 
 import tops.design.*;
-import tops.struct.*;
 import net.rudp.*;
 
 public class TOPS_Client implements Runnable {
@@ -19,10 +18,6 @@ public class TOPS_Client implements Runnable {
 	InputStream in = null;
 	BufferedReader br = null;
 	static PrintWriter pw = null;
-
-//	public TOPS_Client() throws UnknownHostException, IOException {
-//
-//	}
 
 	private String getPatternfromMSG(String message, Pattern p) {
 		Pattern pattern = p;
@@ -63,7 +58,7 @@ public class TOPS_Client implements Runnable {
 			Pattern commandPattern = Pattern.compile("'.*'");
 			String commandMessage = getPatternfromMSG(line, commandPattern);
 			
-			System.out.println("From TOPS_Deamon : " + line);
+			System.out.println("From TOPS_Daemon : " + line);
 
 			if (commandMessage.equals("dm_RequestAddFriend")) {
 				Pattern idPattern = Pattern.compile("!.*!");

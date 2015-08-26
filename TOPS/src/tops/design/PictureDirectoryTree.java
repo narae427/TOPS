@@ -2,11 +2,7 @@ package tops.design;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.util.StringTokenizer;
-
-import javax.swing.JList;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeSelectionEvent;
@@ -33,7 +29,6 @@ public class PictureDirectoryTree implements TreeWillExpandListener, TreeSelecti
 		this.tree = tree;
 		this.root = root;
 		this.rootPath = rootPath;
-//		this.myPortNumber = TOPS.myPrivatePN;
 	}
 	
 	public void makePictureDirectoryTree(){
@@ -57,8 +52,6 @@ public class PictureDirectoryTree implements TreeWillExpandListener, TreeSelecti
 			
 				DefaultMutableTreeNode dmt = new DefaultMutableTreeNode(
 						files[i].getName());
-				//dmt.add(new DefaultMutableTreeNode("EMPTY"));
-				//dmt.setAllowsChildren(true);
 				root.add(dmt);
 				
 		}
@@ -69,7 +62,6 @@ public class PictureDirectoryTree implements TreeWillExpandListener, TreeSelecti
 		// TODO Auto-generated method stub
 				JTree t = null;
 				t = (JTree) e.getSource();
-				//System.out.println(t.getSelectionPath().toString());
 				String path = null;
 				int pathCount = t.getSelectionPath().getPathCount();
 

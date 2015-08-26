@@ -29,86 +29,35 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.math.BigInteger;
-import java.net.*;
-import java.security.GeneralSecurityException;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.RSAPrivateKeySpec;
-import java.security.spec.RSAPublicKeySpec;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Enumeration;
-import java.util.GregorianCalendar;
-import java.util.Hashtable;
 import java.util.StringTokenizer;
-import java.util.Vector;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.border.BevelBorder;
 
 import java.awt.Color;
 
-import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.SoftBevelBorder;
-
-import java.awt.List;
-
 import javax.swing.JToolBar;
 import javax.swing.border.LineBorder;
-import javax.swing.event.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Caret;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.ExpandVetoException;
-import javax.swing.tree.TreePath;
 import javax.swing.JDialog;
 import javax.swing.JList;
-import javax.swing.JTree;
-import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
-import javax.swing.JSpinner;
-import javax.swing.ListCellRenderer;
-import javax.swing.SpinnerListModel;
-import javax.swing.JComboBox;
 
 import java.awt.Cursor;
 
 import javax.swing.ScrollPaneConstants;
-import javax.swing.JPopupMenu;
 import javax.swing.ListSelectionModel;
-
-import com.google.common.hash.*;
 
 import tops.design.*;
 import tops.struct.*;
 import net.rudp.*;
 
-import java.awt.Rectangle;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 //TOPS : Triangle oriented P2P SNS
 public class TOPS implements KeyListener {
 
 	public static String myID = "";
-//	public static int myPublicPN = 0;
-//	public static int myPrivatePN = 0;
-//	public static BloomFilter bloomFilter;
-
-//	static String myPublicIP = "";
-//	public static String myPrivateIP = "";
 	JFrame frame;
 	JTextField textField;
 	CardLayout cl_cardpanel, cl2_cardpanel;
@@ -120,7 +69,6 @@ public class TOPS implements KeyListener {
 	JTextArea textArea = new JTextArea();
 	ListSetting LS = new ListSetting();
 
-//	static Hashtable<String, Integer> freindVerHT = new Hashtable<String, Integer>();
 	DefaultMutableTreeNode root2;
 
 	String topDirPath = null;
@@ -130,11 +78,6 @@ public class TOPS implements KeyListener {
 	public static JTextField textField_1;
 	private JTextField textField_2;
 	public static String myOS = null;
-
-//	static BigInteger pubMod = null;
-//	static BigInteger pubExp = null;
-//	public static BigInteger privMod = null;
-//	public static BigInteger privExp = null;
 
 	static int DHP = 7001;
 	static int DHG = 7;
@@ -146,7 +89,6 @@ public class TOPS implements KeyListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					myPrivateIP = InetAddress.getLocalHost().getHostAddress();
 					myOS = System.getProperty("os.name");
 					TOPS window = new TOPS();
 					window.frame.setVisible(true);
@@ -173,13 +115,6 @@ public class TOPS implements KeyListener {
 		frame.addWindowListener(new WindowAdapter() // Window Event구현
 		{
 			public void windowClosing(WindowEvent e) {
-//				try {
-//					Client_LoginServer MMS = new Client_LoginServer();
-//					MMS.UnconnectToMainServer();
-//					System.exit(0);
-//				} catch (Exception ee) {
-//					System.exit(1);
-//				}
 				System.out.println("dm_Logout 메시지 전달");
 				TOPS.top_client.sendMessage("'dm_Logout'");
 				try {
@@ -242,8 +177,6 @@ public class TOPS implements KeyListener {
 					CommonFriendDialog CFD = new CommonFriendDialog();
 
 					CFD.setSize(130, 670);
-					Dimension screen = Toolkit.getDefaultToolkit()
-							.getScreenSize();
 
 					int frameX = frame.getX();
 					int frameY = frame.getY();
@@ -254,11 +187,8 @@ public class TOPS implements KeyListener {
 					CFD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					CFD.setVisible(true);
 					
-//					FreindNode fn = FreindList.getFriendNode(myFreindList.getSelectedValue().toString());
 					String fn = myFreindList.getSelectedValue().toString();
 					TOPS_Client.sendMessage("'dm_CmnFriend'"+"@"+fn+"@");
-//					BFilter.showCommonFriend(CFD.cmn_list, fn.bloomFilter);
-
 				}
 			}
 		};
@@ -314,7 +244,6 @@ public class TOPS implements KeyListener {
 
 		JButton btnNewButton_2 = new JButton("\uBAA8\uC544\uBCF4\uAE30");
 		btnNewButton_2.addActionListener(new ActionListener() {
-			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) { // ////////////////////////////모아보기
 															// 버튼
 				cl2_cardpanel.show(cardpanel2, "one");
@@ -329,7 +258,6 @@ public class TOPS implements KeyListener {
 		JButton btnNewButton_3 = new JButton("내 스토리");
 		btnNewButton_3.addActionListener(new ActionListener() { // //////////////////////////////내
 																// 스토리 버튼
-					@SuppressWarnings("static-access")
 					public void actionPerformed(ActionEvent e) {
 						cl2_cardpanel.show(cardpanel2, "two");
 
@@ -352,9 +280,6 @@ public class TOPS implements KeyListener {
 						if (FTD == null) {
 							FTD = new FreindTreeDialog();
 							FTD.setSize(130, 670);
-							Dimension screen = Toolkit.getDefaultToolkit()
-									.getScreenSize();
-							// Dimension frm = FTD.getSize();
 
 							int frameX = frame.getX();
 							int frameY = frame.getY();

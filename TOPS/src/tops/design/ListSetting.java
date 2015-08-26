@@ -1,7 +1,5 @@
 package tops.design;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
@@ -12,19 +10,13 @@ import java.util.Comparator;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
-
-import tops.design.*;
 import tops.main.*;
 import tops.struct.*;
 
 
 public class ListSetting {
 	static PresentationView PV = null;
-	public ListSetting(){
-		
-	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public JList setList(JList list, String path)  {
 		ArrayList<Writing> writingList = new ArrayList<Writing>();
 		 
@@ -165,8 +157,6 @@ public class ListSetting {
 				e.printStackTrace();
 			}
 		}
-		
-
 		list.setListData((Writing[])writingList.toArray(new Writing[0]));
 		list.setCellRenderer((ListCellRenderer) new ListCell());
 		

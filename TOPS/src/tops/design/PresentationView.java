@@ -1,29 +1,21 @@
 package tops.design;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Box;
-import javax.swing.JWindow;
 import javax.swing.ListModel;
-
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
 import java.awt.Font;
-
 import javax.swing.JTextArea;
-
 import java.awt.BorderLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -32,7 +24,6 @@ import java.awt.Toolkit;
 
 import javax.swing.JButton;
 
-import tops.design.*;
 import tops.struct.*;
 
 import java.awt.Insets;

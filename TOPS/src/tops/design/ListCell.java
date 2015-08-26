@@ -3,43 +3,34 @@ package tops.design;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
 import javax.swing.JLabel;
-import javax.swing.ListModel;
 
-import java.awt.Canvas;
 import java.awt.Dimension;
 
-import javax.swing.JFormattedTextField;
-
-import java.awt.Insets;
-import java.awt.Rectangle;
-
 import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 
 import tops.struct.*;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 
-public class ListCell extends JPanel implements ListCellRenderer{
+public class ListCell extends JPanel implements ListCellRenderer<Object>{
 
-	 public JTextArea textLabel = new JTextArea();
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public JTextArea textLabel = new JTextArea();
 	 JLabel writerLabel = new JLabel("0000");
 	 JLabel dateLabel = new JLabel("  0000년 0월 0일 오전 00시 00분");
 	 public static Writing selectedW = null;
@@ -99,7 +90,7 @@ public class ListCell extends JPanel implements ListCellRenderer{
 	  private final Color evenColor = new Color(230,240,255);
 	  private final JPanel panel_1 = new JPanel();
 	  @Override public Component getListCellRendererComponent(
-	      JList list, Object value, int index, boolean isSelected, boolean hasFocus) {		  
+	      JList<?> list, Object value, int index, boolean isSelected, boolean hasFocus) {		  
 		  
 		  textLabel.setText((value==null)?"":((Writing)value).getText());
 		  writerLabel.setText(((Writing)value).getWriter());

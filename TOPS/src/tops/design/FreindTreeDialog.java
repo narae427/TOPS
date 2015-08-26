@@ -6,18 +6,16 @@ import javax.swing.JTree;
 import java.awt.BorderLayout;
 
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-
-import java.awt.Component;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTabbedPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import tops.main.*;
 
 
 public class FreindTreeDialog extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JScrollPane scrollPane;
 	JTree tree;
 	DefaultMutableTreeNode root;

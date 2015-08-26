@@ -6,12 +6,6 @@ import javax.swing.JTree;
 import java.awt.BorderLayout;
 
 import javax.swing.JScrollPane;
-import javax.swing.UIManager;
-
-import java.awt.Component;
-
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTabbedPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JButton;
 
@@ -28,6 +22,7 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 
+@SuppressWarnings("serial")
 public class addPictureDialog extends JDialog{
 	JScrollPane scrollPane;
 	JTree tree;

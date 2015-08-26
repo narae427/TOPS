@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 
 import tops.main.*;
-import tops.struct.*;
 
 import java.awt.FlowLayout;
 
@@ -41,11 +40,9 @@ public class addFreindDialog extends JDialog {
 		JButton btnNewButton_1 = new JButton("\uC218\uB77D");
 		btnNewButton_1.setPreferredSize(new Dimension(100, 23));
 		btnNewButton_1.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent arg0) {
 				addFreind();
-//				Client_LoginServer MMS = new Client_LoginServer();
-//				MMS.sendMSGtoLoginServer(msg.AllowAddFreindMSG(TOPS.myID,
-//						freindID));
 				TOPS.top_client.sendMessage("'dm_AllowFriend'" +"@"+ freindID+"@"  );
 
 				dispose();
