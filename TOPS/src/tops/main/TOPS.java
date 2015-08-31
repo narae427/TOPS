@@ -62,8 +62,8 @@ public class TOPS implements KeyListener {
 	JTextField textField;
 	CardLayout cl_cardpanel, cl2_cardpanel;
 	JPanel cardpanel, cardpanel2;
-	public static JList freindsList = new JList();
-	static JList mainList = new JList();
+	public static JList<?> freindsList = new JList();
+	static JList<?> mainList = new JList();
 	JList myList = new JList();
 	static JList myFreindList = new JList();
 	JTextArea textArea = new JTextArea();
@@ -203,7 +203,10 @@ public class TOPS implements KeyListener {
 				daemon.executeServer(); //HNR
 				try {
 					top_client = new TOPS_Client();
-					top_client.connectDaemon();
+					int suc = -1;
+					while(suc == -1){
+						suc = top_client.connectDaemon();
+					}
 					new Thread(top_client).start();
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block

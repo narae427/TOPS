@@ -103,7 +103,9 @@ public class TOPS_Client implements Runnable {
 		}
 	}
 
-	public void connectDaemon() throws UnknownHostException, IOException {
+	public int connectDaemon() throws UnknownHostException, IOException {
+		System.out.println("TOPS_Server.ServerPN " + TOPS_Server.ServerPN);
+		if(TOPS_Server.ServerPN == 0) return -1;
 		sock = new Socket("127.0.0.1", TOPS_Server.ServerPN); ///////////////////////////////////////////////////////////////////////////HNR
 
 		out = sock.getOutputStream();
@@ -121,7 +123,7 @@ public class TOPS_Client implements Runnable {
 		}
 
 		sendMessage("'dm_Login'" + "!" + TOPS.myID+"!");
-
+		return 0;
 	}
 
 	public static void sendMessage(String line) {
