@@ -33,7 +33,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
 import java.awt.Color;
 
 import javax.swing.JToolBar;
@@ -109,22 +108,29 @@ public class TOPS implements KeyListener {
 	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 670);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.setResizable(false);
 
 		frame.addWindowListener(new WindowAdapter() // Window Event구현
 		{
 			public void windowClosing(WindowEvent e) {
 				System.out.println("dm_Logout 메시지 전달");
-				TOPS.top_client.sendMessage("'dm_Logout'");
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				System.exit(0);
+				WaitingDialog WD = new WaitingDialog();
+				WD.setSize(300, 150);
+				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+				Dimension frm = WD.getSize();
 
+				int xpos = (int) (screen.getWidth() / 2 - frm.getWidth() / 2);
+				int ypos = (int) (screen.getHeight() / 2 - frm.getHeight() / 2);
+
+				WD.setLocation(xpos, ypos);
+				WD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+				WD.setVisible(true);
+				
+				new Thread(WD).start();
+				TOPS.top_client.sendMessage("'dm_Logout'");
+				
 			}
 		});
 
