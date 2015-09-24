@@ -29,10 +29,10 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.net.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.awt.Color;
 
 import javax.swing.JToolBar;
@@ -56,6 +56,8 @@ import java.awt.BorderLayout;
 //TOPS : Triangle oriented P2P SNS
 public class TOPS implements KeyListener {
 
+	public static String dm_ip = "127.0.0.1";
+	public static int dm_pn = 9626;
 	public static String myID = "";
 	JFrame frame;
 	JTextField textField;
@@ -82,6 +84,7 @@ public class TOPS implements KeyListener {
 	static int DHG = 7;
 	
 	public static TOPS_Client top_client = null;
+	static Hashtable<String, Integer> freindVerHT = new Hashtable<String, Integer>();
 
 	public static void main(String[] args) {
 		
@@ -205,8 +208,8 @@ public class TOPS implements KeyListener {
 		LoginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myID = textField.getText();
-				TOPS_Daemon daemon = new TOPS_Daemon(); ///////////////////////////////////////////////////////////////////////////HNR
-				daemon.executeServer(); //HNR
+//				TOPS_Daemon daemon = new TOPS_Daemon(); ///////////////////////////////////////////////////////////////////////////HNR
+//				daemon.executeServer(); //HNR
 				try {
 					top_client = new TOPS_Client();
 					int suc = -1;
@@ -232,6 +235,21 @@ public class TOPS implements KeyListener {
 				System.out.println("My Folder Path : " + myFolderPath);
 				System.out.println();
 
+				top_client.checkUpdateFiles();
+				System.out.println("checkUpdateFiles==========================");
+//				Client_DaemonThread CDT;
+//				try {
+//					CDT = new Client_DaemonThread();
+//					CDT.readyForReceiveUpdateFile_UPDATE();
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				} catch (Exception e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//				
+				
 				LS.setList(mainList, myFolderPath);
 
 				cl_cardpanel.next(cardpanel);

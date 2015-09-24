@@ -9,10 +9,11 @@ import java.util.regex.*;
 import javax.swing.*;
 
 import tops.design.*;
+import tops.struct.*;
 import net.rudp.*;
 
 public class TOPS_Client implements Runnable {
-	Socket sock = null;
+	public static Socket sock = null;
 	String line = null;
 	OutputStream out = null;
 	InputStream in = null;
@@ -54,10 +55,10 @@ public class TOPS_Client implements Runnable {
 			}
 			if (line == null)
 				continue;
-			
+
 			Pattern commandPattern = Pattern.compile("'.*'");
 			String commandMessage = getPatternfromMSG(line, commandPattern);
-			
+
 			System.out.println("From TOPS_Daemon : " + line);
 
 			if (commandMessage.equals("dm_RequestAddFriend")) {
@@ -76,20 +77,34 @@ public class TOPS_Client implements Runnable {
 				FD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 				FD.setVisible(true);
-			}  else if (commandMessage.equals("dm_FriendUpdate")) {
+			} else if (commandMessage.equals("dm_FriendUpdate")) {
 				try {
 					TOPS.setFreindList();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}else if (commandMessage.equals("dm_ListUpdate")) {
+			} else if (commandMessage.equals("dm_ListUpdate")) {
+
+				TOPS_Client.sendMessage("'dm_Request_Updates'");
+				System.out.println("Send dm_Request_Updates");
+
+				Socket socket = TOPS_Client.sock;
+
+				DM_Sync sync = new DM_Sync();
+				try {
+					sync.DoSynchronize();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				ListSetting LS = new ListSetting();
-				 LS.setList(TOPS.mainList, TOPS.myFolderPath);
-			}else if(commandMessage.equals("dm_ShowCmnFriend")){
+				LS.setList(TOPS.mainList, TOPS.myFolderPath);
+			} else if (commandMessage.equals("dm_ShowCmnFriend")) {
 				Pattern fidPattern = Pattern.compile("@.*@");
 				String fidMessage = getPatternfromMSG(line, fidPattern);
-				
+
 				StringTokenizer st = new StringTokenizer(fidMessage, ";");
 				String freindId = "";
 				Vector<String> v = new Vector<String>();
@@ -104,25 +119,25 @@ public class TOPS_Client implements Runnable {
 	}
 
 	public int connectDaemon() throws UnknownHostException, IOException {
-		System.out.println("TOPS_Server.ServerPN " + TOPS_Server.ServerPN);
-		if(TOPS_Server.ServerPN == 0) return -1;
-		sock = new Socket("127.0.0.1", TOPS_Server.ServerPN); ///////////////////////////////////////////////////////////////////////////HNR
+		System.out.println("TOPS_Server.ServerPN " + 9626);
+		// if(TOPS_Server.ServerPN == 0) return -1;
+		sock = new Socket(TOPS.dm_ip, TOPS.dm_pn); // /////////////////////////////////////////////////////////////////////////HNR
 
 		out = sock.getOutputStream();
 		in = sock.getInputStream();
 		br = new BufferedReader(new InputStreamReader(in));
 		pw = new PrintWriter(new OutputStreamWriter(out));
 
-		try {
-			ReliableSocket mainSocket = new ReliableSocket();
-			mainSocket.connect(new InetSocketAddress("127.0.0.1", 8089), 10000);
+		// try {
+		// ReliableSocket mainSocket = new ReliableSocket();
+		// mainSocket.connect(new InetSocketAddress("127.0.0.1", 8089), 10000);
+		//
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		sendMessage("'dm_Login'" + "!" + TOPS.myID+"!");
+		sendMessage("'dm_Login'" + "!" + TOPS.myID + "!");
 		return 0;
 	}
 
@@ -130,5 +145,33 @@ public class TOPS_Client implements Runnable {
 		pw.println(line);
 		pw.flush();
 
+	}
+
+	public void checkUpdateFiles() {
+		File[] myUpdateFile = null;
+		File myUpdateFilePath = new File(TOPS.myFolderPath
+				+ System.getProperty("file.separator") + "UpdateFile");
+		myUpdateFile = myUpdateFilePath.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				// TODO Auto-generated method stub
+				return name.contains("UpdateFile");
+			}
+
+		});
+
+		if (myUpdateFile == null || myUpdateFile.length == 0) {
+			return;
+		}
+
+		for (File f : myUpdateFile) {
+			String[] fileNameTokens = f.getName().split("_");
+			String id = fileNameTokens[0];
+			int version = Integer.valueOf(fileNameTokens[2]);
+
+			TOPS.freindVerHT.put(id, version);
+		}
+		return;
 	}
 }
