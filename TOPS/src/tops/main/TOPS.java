@@ -237,19 +237,6 @@ public class TOPS implements KeyListener {
 				System.out.println();
 
 				top_client.checkUpdateFiles();
-				System.out.println("checkUpdateFiles==========================");
-//				Client_DaemonThread CDT;
-//				try {
-//					CDT = new Client_DaemonThread();
-//					CDT.readyForReceiveUpdateFile_UPDATE();
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				} catch (Exception e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
 				
 				LS.setList(mainList, myFolderPath);
 
@@ -477,17 +464,9 @@ public class TOPS implements KeyListener {
 					textField_1.setText("");
 					LS.setList(mainList, myFolderPath);
 
-//					Hashtable<String, Integer> tempIDM = new Hashtable<String, Integer>();
-//					if(IDM.get(myID) == null || IDM.get(myID).get(myID) == null) tempIDM.put(myID, 1);
-//					else	tempIDM.put(myID, IDM.get(myID).get(myID)+1);
-//					IDM.put(myID, tempIDM);
-
-//					Client.CallPushData(fileName);
 					TOPS.top_client.sendMessage("'dm_PushData'" + ":" + fileName + ":");
 					System.out.println("dm_PushData");
 					
-//					DM_Sync sync = new DM_Sync();
-//					sync.DoSynchronize_Send();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					System.out.println("파일 생성 실패");
@@ -629,22 +608,6 @@ public class TOPS implements KeyListener {
 					}
 				}
 
-//				try {
-//					Client_LoginServer MMS = new Client_LoginServer();
-//					// MMS.sendMessageToMainServer(msg.CheckOnlineFreindMSG("127.0.0.1",
-//					// String.valueOf(myPortNumber), textField_2.getText()));
-//					MMS.sendMSGtoLoginServer(msg.RequestAddFreindMSG(myID,
-//							textField_2.getText()));
-//					textField_2.setText("");
-//					setFreindList();
-//
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				} catch (Exception e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
 				TOPS.top_client.sendMessage("'dm_AddFriend'" + "@"+textField_2.getText()+"@");
 				textField_2.setText("");
 				try {
