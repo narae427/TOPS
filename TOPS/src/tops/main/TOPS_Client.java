@@ -86,22 +86,35 @@ public class TOPS_Client implements Runnable {
 				}
 			} else if (commandMessage.equals("dm_ListUpdate")) {
 
-				TOPS_Client.sendMessage("'dm_Request_Updates'");
-				System.out.println("Send dm_Request_Updates");
+				TOPS_Client.sendMessage("'dm_Sync'");
 
-				Socket socket = TOPS_Client.sock;
-
-				DM_Sync sync = new DM_Sync();
+				DM_Sync sync;
 				try {
-					sync.DoSynchronize();
+					sync = new DM_Sync();
+					sync.DoSynchronize_Recieve();
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				ListSetting LS = new ListSetting();
+				LS.setList(TOPS.mainList, TOPS.myFolderPath);
+			}else if(commandMessage.equals("dm_Sync")){
+				DM_Sync sync;
+				try {
+					sync = new DM_Sync();
+					sync.DoSynchronize_Send();
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				ListSetting LS = new ListSetting();
-				LS.setList(TOPS.mainList, TOPS.myFolderPath);
-			} else if (commandMessage.equals("dm_ShowCmnFriend")) {
+				
+			}else if (commandMessage.equals("dm_ShowCmnFriend")) {
 				Pattern fidPattern = Pattern.compile("@.*@");
 				String fidMessage = getPatternfromMSG(line, fidPattern);
 

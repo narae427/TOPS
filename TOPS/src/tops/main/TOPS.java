@@ -58,6 +58,7 @@ public class TOPS implements KeyListener {
 
 	public static String dm_ip = "127.0.0.1";
 	public static int dm_pn = 9626;
+	public static int dm_filepn = 9262;
 	public static String myID = "";
 	JFrame frame;
 	JTextField textField;
@@ -483,7 +484,10 @@ public class TOPS implements KeyListener {
 
 //					Client.CallPushData(fileName);
 					TOPS.top_client.sendMessage("'dm_PushData'" + ":" + fileName + ":");
-					System.out.println("CallPushData");
+					System.out.println("dm_PushData");
+					
+//					DM_Sync sync = new DM_Sync();
+//					sync.DoSynchronize_Send();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					System.out.println("파일 생성 실패");
