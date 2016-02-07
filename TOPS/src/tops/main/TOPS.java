@@ -29,7 +29,7 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.net.*;
+//import java.net.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -49,7 +49,6 @@ import javax.swing.ListSelectionModel;
 
 import tops.design.*;
 import tops.struct.*;
-import net.rudp.*;
 
 import java.awt.BorderLayout;
 
@@ -57,8 +56,8 @@ import java.awt.BorderLayout;
 public class TOPS implements KeyListener {
 
 	public static String dm_ip = "127.0.0.1";
-	public static int dm_pn = 9626;
-	public static int dm_filepn = 9262;
+	public static int dm_pn = -1;
+	public static int dm_filepn = -1;
 	public static String myID = "";
 	JFrame frame;
 	JTextField textField;
@@ -81,9 +80,6 @@ public class TOPS implements KeyListener {
 	private JTextField textField_2;
 	public static String myOS = null;
 
-	static int DHP = 7001;
-	static int DHG = 7;
-	
 	public static TOPS_Client top_client = null;
 	static Hashtable<String, Integer> freindVerHT = new Hashtable<String, Integer>();
 
@@ -131,8 +127,21 @@ public class TOPS implements KeyListener {
 				WD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 				WD.setVisible(true);
-				
+				 System.out.println( 
+	                     "13 - main 스레드그룹: " 
+	                             + Thread.currentThread().getThreadGroup() 
+	                             + ", 활동중인 스레드 개수:" 
+	                             + Thread.currentThread().getThreadGroup().activeCount() 
+	                             + ", 활동중인 스레드그룹 개수:" 
+	                             + Thread.currentThread().getThreadGroup().activeGroupCount()); 
 				new Thread(WD).start();
+				 System.out.println( 
+	                     "14 - main 스레드그룹: " 
+	                             + Thread.currentThread().getThreadGroup() 
+	                             + ", 활동중인 스레드 개수:" 
+	                             + Thread.currentThread().getThreadGroup().activeCount() 
+	                             + ", 활동중인 스레드그룹 개수:" 
+	                             + Thread.currentThread().getThreadGroup().activeGroupCount()); 
 				TOPS.top_client.sendMessage("'dm_Logout'");
 				
 			}
@@ -205,19 +214,39 @@ public class TOPS implements KeyListener {
 
 		myFreindList.addMouseListener(mouseListener);
 
-		final JButton LoginBtn = new JButton("\uC811\uC18D");
+		final JButton LoginBtn = new JButton("접속");
 		LoginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myID = textField.getText();
-//				TOPS_Daemon daemon = new TOPS_Daemon(); ///////////////////////////////////////////////////////////////////////////HNR
-//				daemon.executeServer(); //HNR
+				TOPS_Daemon daemon = new TOPS_Daemon(); ///////////////////////////////////////////////////////////////////////////HNR
+				try {
+					daemon.executeServer();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} //HNR
 				try {
 					top_client = new TOPS_Client();
 					int suc = -1;
 					while(suc == -1){
 						suc = top_client.connectDaemon();
 					}
+					 System.out.println( 
+		                     "11 - main 스레드그룹: " 
+		                             + Thread.currentThread().getThreadGroup() 
+		                             + ", 활동중인 스레드 개수:" 
+		                             + Thread.currentThread().getThreadGroup().activeCount() 
+		                             + ", 활동중인 스레드그룹 개수:" 
+		                             + Thread.currentThread().getThreadGroup().activeGroupCount()); 
 					new Thread(top_client).start();
+					 System.out.println( 
+		                     "12 - main 스레드그룹: " 
+		                             + Thread.currentThread().getThreadGroup() 
+		                             + ", 활동중인 스레드 개수:" 
+		                             + Thread.currentThread().getThreadGroup().activeCount() 
+		                             + ", 활동중인 스레드그룹 개수:" 
+		                             + Thread.currentThread().getThreadGroup().activeGroupCount()); 
+					
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -257,8 +286,8 @@ public class TOPS implements KeyListener {
 		toolBar.setPreferredSize(new Dimension(13, 22));
 		toolBar.setMaximumSize(new Dimension(500, 50));
 
-		JButton btnNewButton_2 = new JButton("\uBAA8\uC544\uBCF4\uAE30");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btn1 = new JButton("모아보기");
+		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { // ////////////////////////////모아보기
 															// 버튼
 				cl2_cardpanel.show(cardpanel2, "one");
@@ -267,11 +296,11 @@ public class TOPS implements KeyListener {
 			}
 		});
 		
-		btnNewButton_2.setMaximumSize(new Dimension(100, 23));
-		toolBar.add(btnNewButton_2);
+		btn1.setMaximumSize(new Dimension(100, 23));
+		toolBar.add(btn1);
 
-		JButton btnNewButton_3 = new JButton("내 스토리");
-		btnNewButton_3.addActionListener(new ActionListener() { // //////////////////////////////내
+		JButton btn2 = new JButton("내 스토리");
+		btn2.addActionListener(new ActionListener() { // //////////////////////////////내
 																// 스토리 버튼
 					public void actionPerformed(ActionEvent e) {
 						cl2_cardpanel.show(cardpanel2, "two");
@@ -284,11 +313,11 @@ public class TOPS implements KeyListener {
 										+ myID);
 					}
 				});
-		btnNewButton_3.setMaximumSize(new Dimension(100, 23));
-		toolBar.add(btnNewButton_3);
+		btn2.setMaximumSize(new Dimension(100, 23));
+		toolBar.add(btn2);
 
-		JButton btnNewButton_4 = new JButton("친구 스토리");
-		btnNewButton_4.addActionListener(new ActionListener() { // ///////////////////////////////친구
+		JButton btn3 = new JButton("친구 스토리");
+		btn3.addActionListener(new ActionListener() { // ///////////////////////////////친구
 					// 스토리 버튼
 					public void actionPerformed(ActionEvent e) {
 						cl2_cardpanel.show(cardpanel2, "three");
@@ -310,11 +339,11 @@ public class TOPS implements KeyListener {
 
 					}
 				});
-		btnNewButton_4.setMaximumSize(new Dimension(100, 23));
-		toolBar.add(btnNewButton_4);
+		btn3.setMaximumSize(new Dimension(100, 23));
+		toolBar.add(btn3);
 
-		JButton btnNewButton_5 = new JButton("***");
-		btnNewButton_5.addActionListener(new ActionListener() {
+		JButton btn4 = new JButton("***");
+		btn4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cl2_cardpanel.show(cardpanel2, "four");
 				try {
@@ -325,8 +354,8 @@ public class TOPS implements KeyListener {
 				}
 			}
 		});
-		btnNewButton_5.setMaximumSize(new Dimension(100, 23));
-		toolBar.add(btnNewButton_5);
+		btn4.setMaximumSize(new Dimension(100, 23));
+		toolBar.add(btn4);
 
 		cardpanel2 = new JPanel();
 		panel_2.add(cardpanel2);
@@ -349,8 +378,8 @@ public class TOPS implements KeyListener {
 		Component horizontalStrut_8 = Box.createHorizontalStrut(10);
 		horizontalBox_3.add(horizontalStrut_8);
 
-		JButton btnNewButton_6 = new JButton("사진");
-		btnNewButton_6.addActionListener(new ActionListener() {
+		JButton addPic_btn = new JButton("사진");
+		addPic_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PreviewDialog previewD = new PreviewDialog();
 				previewD.setSize(300, frame.getHeight());
@@ -381,8 +410,8 @@ public class TOPS implements KeyListener {
 
 			}
 		});
-		btnNewButton_6.setPreferredSize(new Dimension(69, 24));
-		horizontalBox_3.add(btnNewButton_6);
+		addPic_btn.setPreferredSize(new Dimension(69, 24));
+		horizontalBox_3.add(addPic_btn);
 
 		Component verticalStrut_4 = Box.createVerticalStrut(20);
 		horizontalBox_3.add(verticalStrut_4);
@@ -416,8 +445,8 @@ public class TOPS implements KeyListener {
 		horizontalStrut.setMinimumSize(new Dimension(10, 0));
 		horizontalBox.add(horizontalStrut);
 
-		JButton btnNewButton = new JButton("Write");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton write_btn = new JButton("Write");
+		write_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String fileName = myID + "_" + getTime();
 				// File f = new File(dirPath + fileName);
@@ -477,7 +506,7 @@ public class TOPS implements KeyListener {
 
 			}
 		});
-		horizontalBox.add(btnNewButton);
+		horizontalBox.add(write_btn);
 
 		Component verticalStrut_2 = Box.createVerticalStrut(10);
 		one.add(verticalStrut_2);
@@ -507,12 +536,12 @@ public class TOPS implements KeyListener {
 		two.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new GridLayout(0, 2, 0, 0));
 
-		JButton editButton = new JButton("Edit");
-		panel.add(editButton);
-		editButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		JButton edit_btn = new JButton("Edit");
+		panel.add(edit_btn);
+		edit_btn.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-		JButton deleteButton = new JButton("Delete");
-		deleteButton.addActionListener(new ActionListener() {
+		JButton delete_btn = new JButton("Delete");
+		delete_btn.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				Writing w = ListCell.selectedW;
@@ -538,8 +567,8 @@ public class TOPS implements KeyListener {
 
 			}
 		});
-		panel.add(deleteButton);
-		deleteButton.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		panel.add(delete_btn);
+		delete_btn.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
 		JScrollPane three = new JScrollPane();
 		cardpanel2.add(three, "three");
@@ -570,8 +599,8 @@ public class TOPS implements KeyListener {
 		Component horizontalStrut_10 = Box.createHorizontalStrut(10);
 		horizontalBox_4.add(horizontalStrut_10);
 
-		JButton btnNewButton_7 = new JButton("추가");
-		btnNewButton_7.addActionListener(new ActionListener() {
+		JButton addFriend_btn = new JButton("추가");
+		addFriend_btn.addActionListener(new ActionListener() {
 			@SuppressWarnings("resource")
 			public void actionPerformed(ActionEvent e) {
 				if (textField_2.getText().equals("")) {
@@ -619,7 +648,7 @@ public class TOPS implements KeyListener {
 			}
 			
 		});
-		horizontalBox_4.add(btnNewButton_7);
+		horizontalBox_4.add(addFriend_btn);
 
 		Box verticalBox_1 = Box.createVerticalBox();
 		four.add(verticalBox_1, BorderLayout.CENTER);
@@ -697,8 +726,7 @@ public class TOPS implements KeyListener {
 		if (!freindListFile.exists())
 			return;
 		ArrayList<String> freindListArr = new ArrayList<String>();
-		LineNumberReader reader = new LineNumberReader(new FileReader(
-				freindListFile));
+		LineNumberReader reader = new LineNumberReader(new FileReader(freindListFile));
 		while (true) {
 			String freindID = reader.readLine();
 			if (freindID == null)
@@ -715,25 +743,6 @@ public class TOPS implements KeyListener {
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMdd_HHmmss");
 		String strTime = dayTime.format(new Date(time));
 		return strTime;
-	}
-
-	static public int getAvailablePortNumber() {
-		int availablePortNumber = 0;
-		for (int pn = 1024; pn < 65535; pn++) {
-			try {
-				ReliableServerSocket socket = new ReliableServerSocket(pn);
-				socket.setReuseAddress(true);
-				availablePortNumber = pn;
-				socket.close();
-				return availablePortNumber;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				continue;
-			}
-
-		}
-
-		return -1;
 	}
 
 	@Override

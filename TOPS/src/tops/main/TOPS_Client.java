@@ -47,8 +47,10 @@ public class TOPS_Client implements Runnable {
 
 		line = null;
 		while (true) {
+			
 			try {
 				line = br.readLine();
+			//	System.out.println("llllllllllllllllllllllllllllllllllllllllline " + line);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -77,6 +79,7 @@ public class TOPS_Client implements Runnable {
 				FD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 				FD.setVisible(true);
+				System.out.println("Ã¢ ¶¸´Ï?");
 			} else if (commandMessage.equals("dm_FriendUpdate")) {
 				try {
 					TOPS.setFreindList();
@@ -132,23 +135,16 @@ public class TOPS_Client implements Runnable {
 	}
 
 	public int connectDaemon() throws UnknownHostException, IOException {
-		System.out.println("TOPS_Server.ServerPN " + 9626);
-		// if(TOPS_Server.ServerPN == 0) return -1;
+		TOPS. dm_pn = TOPS_Server.ServerPN; //0127
+		TOPS. dm_filepn = TOPS_Server.FilePN;
+		//System.out.println("--TOPS_Server.ServerPN " + TOPS. dm_pn);
+		 if(TOPS. dm_pn == -1) return -1;
 		sock = new Socket(TOPS.dm_ip, TOPS.dm_pn); // /////////////////////////////////////////////////////////////////////////HNR
 
 		out = sock.getOutputStream();
 		in = sock.getInputStream();
 		br = new BufferedReader(new InputStreamReader(in));
 		pw = new PrintWriter(new OutputStreamWriter(out));
-
-		// try {
-		// ReliableSocket mainSocket = new ReliableSocket();
-		// mainSocket.connect(new InetSocketAddress("127.0.0.1", 8089), 10000);
-		//
-		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 
 		sendMessage("'dm_Login'" + "!" + TOPS.myID + "!");
 		return 0;

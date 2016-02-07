@@ -113,6 +113,7 @@ public class ListSetting {
 				File temp = new File(path + System.getProperty("file.separator") + fName);
 				try {
 					reader = new LineNumberReader(new FileReader(temp.getPath()));
+					System.out.println("파일읽기 -> " + temp.getPath());
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -18,6 +18,7 @@ public class DM_Sync {
 
 
 	public DM_Sync() throws UnknownHostException, IOException {
+		
 		this.socket =  new Socket(TOPS.dm_ip,TOPS.dm_filepn);
 		try {
 			dos = new DataOutputStream(socket.getOutputStream());
@@ -29,6 +30,7 @@ public class DM_Sync {
 	}
 
 	public void DoSynchronize_Recieve() throws IOException {
+		//System.out.println("................................................................DM_Sync DoSynchronize_Recieve");
 		DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 		DataInputStream dis = new DataInputStream(socket.getInputStream());
 		FileOutputStream fos = null;
@@ -47,16 +49,12 @@ public class DM_Sync {
 			String[] filePathTokens = filePath.split("TOPS_Daemon");
 			String newFile = filePathTokens[1];
 
-			
-
 			File newFilePath = new File(TOPS.myHomePath
 					+ System.getProperty("file.separator") + "TOPS" + System.getProperty("file.separator")  + newFile); // updatefile
 			
 			String[] fileNameTokens = fileName.split("_UpdateFile_");
 			final String newFileName = fileNameTokens[0];
 			
-			
-
 			
 			if(newFilePath.toString().contains("_UpdateFile_")){
 				int newVer = Integer.valueOf(fileNameTokens[1]);
@@ -76,7 +74,6 @@ public class DM_Sync {
 				
 				if(udFile != null){
 					for(File f : udFile){
-						final String[] vTokens = f.getName().split("_UpdateFile_");
 						oldVer = Integer.valueOf(fileNameTokens[1]);
 						if(oldVer > newVer) recieve = false;
 						else f.delete();
@@ -126,6 +123,7 @@ public class DM_Sync {
 	}
 
 	public void sendFiles(File[] files) throws IOException {
+		//System.out.println("................................................................DM_Sync SendFiles");
 
 		for (File f : files) {
 			if (f.isDirectory()) {
@@ -167,8 +165,8 @@ public class DM_Sync {
 	}
 
 	public void DoSynchronize_Send() throws IOException {
-		File dmPath = new File(TOPS.myHomePath
-				+ System.getProperty("file.separator") + "TOPS");
+		//System.out.println("................................................................DM_Sync DoSynchronize_Send");
+		File dmPath = new File(TOPS.myFolderPath);
 		File[] dmFile = null;
 		dmFile = dmPath.listFiles();
 
