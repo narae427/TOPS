@@ -58,7 +58,6 @@ public class PresentationView extends JFrame implements FocusListener, KeyListen
 		setResizable(false);
 		wModel = model;
 		this.itemIndex = i;
-		//wItem = (Writing)model.getElementAt(itemIndex);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		setUndecorated(true);
 		setSize(screen.width, screen.height);
@@ -107,9 +106,6 @@ public class PresentationView extends JFrame implements FocusListener, KeyListen
 		panel_1.setLayout(gbl_panel_1);
 		  imgLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		  imgLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		 //System.out.println("=============================="+((Writing)value).getPicturePath());
-		 
-		//setView(itemIndex);
 
 		  imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		  verticalBox_1.add(imgLabel);
@@ -143,11 +139,9 @@ public class PresentationView extends JFrame implements FocusListener, KeyListen
 		  		}
 		  		
 		  		try{
-		  			//btnNewButton.setEnabled(true);
 		  			btnNewButton_1.setEnabled(true);
 		  			setView(itemIndex);
 		  		}catch(Exception e){
-		  			//btnNewButton.setEnabled(false);
 		  		}
 		  	}
 		  });
@@ -174,10 +168,8 @@ public class PresentationView extends JFrame implements FocusListener, KeyListen
 		  		
 		  		try{
 		  			btnNewButton.setEnabled(true);
-		  			//btnNewButton_1.setEnabled(true);
 		  			setView(itemIndex);
 		  		}catch(Exception e){
-		  			//btnNewButton_1.setEnabled(false);
 		  		}
 		  		
 		  	}
@@ -196,7 +188,6 @@ public class PresentationView extends JFrame implements FocusListener, KeyListen
 		if(itemIndex == wModel.getSize()-1){
   			btnNewButton_1.setEnabled(false);
   		}
-		//System.out.println(itemIndex);
 		Writing wItem = (Writing)wModel.getElementAt(itemIndex);
 		label.setText(wItem.getWriter());
 		
@@ -221,9 +212,6 @@ public class PresentationView extends JFrame implements FocusListener, KeyListen
 			ImageIcon image = new ImageIcon(wItem.getPicturePath());
 			Image ii = image.getImage();
 			imgLabel.setIcon(new ImageIcon(ii));
-			//imgLabel.setIcon(new ImageIcon(ii.getScaledInstance(150, -1, 0)));
-			//imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-			//verticalBox_1.add(imgLabel);
 		}
 	}
 	@Override

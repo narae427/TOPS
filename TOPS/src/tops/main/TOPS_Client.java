@@ -50,7 +50,6 @@ public class TOPS_Client implements Runnable {
 			
 			try {
 				line = br.readLine();
-			//	System.out.println("llllllllllllllllllllllllllllllllllllllllline " + line);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -60,8 +59,6 @@ public class TOPS_Client implements Runnable {
 
 			Pattern commandPattern = Pattern.compile("'.*'");
 			String commandMessage = getPatternfromMSG(line, commandPattern);
-
-			System.out.println("From TOPS_Daemon : " + line);
 
 			if (commandMessage.equals("dm_RequestAddFriend")) {
 				Pattern idPattern = Pattern.compile("!.*!");
@@ -79,7 +76,6 @@ public class TOPS_Client implements Runnable {
 				FD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 				FD.setVisible(true);
-				System.out.println("Ã¢ ¶¸´Ï?");
 			} else if (commandMessage.equals("dm_FriendUpdate")) {
 				try {
 					TOPS.setFreindList();
@@ -135,11 +131,10 @@ public class TOPS_Client implements Runnable {
 	}
 
 	public int connectDaemon() throws UnknownHostException, IOException {
-		TOPS. dm_pn = TOPS_Server.ServerPN; //0127
+		TOPS. dm_pn = TOPS_Server.ServerPN; 
 		TOPS. dm_filepn = TOPS_Server.FilePN;
-		//System.out.println("--TOPS_Server.ServerPN " + TOPS. dm_pn);
 		 if(TOPS. dm_pn == -1) return -1;
-		sock = new Socket(TOPS.dm_ip, TOPS.dm_pn); // /////////////////////////////////////////////////////////////////////////HNR
+		sock = new Socket(TOPS.dm_ip, TOPS.dm_pn); 
 
 		out = sock.getOutputStream();
 		in = sock.getInputStream();

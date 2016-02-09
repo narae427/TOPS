@@ -27,7 +27,6 @@ public class CommonFriendDialog extends JDialog{
 		
 		
 		getContentPane().add(lblNewLabel, BorderLayout.NORTH);
-//		getContentPane().add(cmn_list, BorderLayout.NORTH);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(cmn_list,
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,

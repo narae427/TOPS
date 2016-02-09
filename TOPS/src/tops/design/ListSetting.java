@@ -88,7 +88,6 @@ public class ListSetting {
 		
 		files = sortFileList(files);
 		
-		//FileReader reader = null;
 		LineNumberReader reader = null;
 		for (File file : files) {
 			
@@ -169,13 +168,11 @@ public class ListSetting {
 					int index = list.locationToIndex(evt.getPoint());
 					ListModel dm = list.getModel();
 					Object item = dm.getElementAt(index);
-					//System.out.println("Double Clicked : " + ((Writing)item).text);
 					if(PV == null){
 						PV = new PresentationView(dm, index);
 						PV.setView(index);
 					}
 					
-					//PV.setVisible(true);
 				}
 			}
 		});

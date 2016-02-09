@@ -28,7 +28,6 @@ public class WaitingDialog extends JDialog implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("run");
 		for (int i = 4; i > -1; i--) {
 			try {
 				Thread.sleep(1000);

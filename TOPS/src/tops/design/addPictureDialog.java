@@ -40,18 +40,13 @@ public class addPictureDialog extends JDialog{
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
 		PictureDirectoryTree PictureDT = null;
-		
-		//File d = new File(TOPS.myHomePath +System.getProperty("file.separator") + "?��?");
-		//PictureDT = new PictureDirectoryTree(tree, root, d.getPath());
-		
+			
 		if(TOPS.myOS.equals("Linux")){
 			File d = new File(TOPS.myHomePath + System.getProperty("file.separator") + "?��?");
 			PictureDT = new PictureDirectoryTree(previewD, tree, root, d.getPath());
 		}else{
-			System.out.println("File " + TOPS.myHomePath + System.getProperty("file.separator") + "Pictures");
-			System.out.println("File " +"C:"+ System.getProperty("file.separator") +  "Users" + System.getProperty("file.separator") + System.getProperty("user.name") +System.getProperty("file.separator")+  "Pictures");
-//			File d = new File(TOPS.myHomePath + System.getProperty("file.separator") + "Pictures");
-//			File d = new File("C:" +System.getProperty("file.separator")+"Library"+ System.getProperty("file.separator") + "Pictures");
+			//System.out.println("File " + TOPS.myHomePath + System.getProperty("file.separator") + "Pictures");
+			//System.out.println("File " +"C:"+ System.getProperty("file.separator") +  "Users" + System.getProperty("file.separator") + System.getProperty("user.name") +System.getProperty("file.separator")+  "Pictures");
 			File d = new File("C:"+ System.getProperty("file.separator") +  "Users" + System.getProperty("file.separator") + System.getProperty("user.name") +System.getProperty("file.separator")+  "Pictures");
 			PictureDT = new PictureDirectoryTree(previewD, tree, root, d.getPath());
 		}

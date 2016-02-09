@@ -29,7 +29,6 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.LineNumberReader;
-//import java.net.*;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -218,13 +217,13 @@ public class TOPS implements KeyListener {
 		LoginBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				myID = textField.getText();
-				TOPS_Daemon daemon = new TOPS_Daemon(); ///////////////////////////////////////////////////////////////////////////HNR
+				TOPS_Daemon daemon = new TOPS_Daemon(); 
 				try {
 					daemon.executeServer();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				} //HNR
+				} 
 				try {
 					top_client = new TOPS_Client();
 					int suc = -1;
@@ -288,8 +287,7 @@ public class TOPS implements KeyListener {
 
 		JButton btn1 = new JButton("모아보기");
 		btn1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) { // ////////////////////////////모아보기
-															// 버튼
+			public void actionPerformed(ActionEvent e) { // 모아보기 버튼
 				cl2_cardpanel.show(cardpanel2, "one");
 
 				LS.setList(mainList, myFolderPath);
@@ -300,8 +298,7 @@ public class TOPS implements KeyListener {
 		toolBar.add(btn1);
 
 		JButton btn2 = new JButton("내 스토리");
-		btn2.addActionListener(new ActionListener() { // //////////////////////////////내
-																// 스토리 버튼
+		btn2.addActionListener(new ActionListener() { // 내 스토리 버튼
 					public void actionPerformed(ActionEvent e) {
 						cl2_cardpanel.show(cardpanel2, "two");
 
@@ -317,8 +314,7 @@ public class TOPS implements KeyListener {
 		toolBar.add(btn2);
 
 		JButton btn3 = new JButton("친구 스토리");
-		btn3.addActionListener(new ActionListener() { // ///////////////////////////////친구
-					// 스토리 버튼
+		btn3.addActionListener(new ActionListener() { // 친구 스토리 버튼
 					public void actionPerformed(ActionEvent e) {
 						cl2_cardpanel.show(cardpanel2, "three");
 						if (FTD == null) {
@@ -332,7 +328,6 @@ public class TOPS implements KeyListener {
 
 							FTD.setLocation(xpos, ypos);
 							FTD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-							// FTD.setVisible(true);
 						}
 
 						FTD.setVisible(true);
@@ -397,14 +392,11 @@ public class TOPS implements KeyListener {
 				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 				Dimension frm = PD.getSize();
 
-				// int frameX = frame.getX();
-				// int frameY = frame.getY();
 				xpos = (int) (screen.getWidth() / 2 - frm.getWidth() / 2);
 				ypos = (int) (screen.getHeight() / 2 - frm.getHeight() / 2);
 
 				PD.setLocation(xpos, ypos);
 				PD.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				// FTD.setVisible(true);
 
 				PD.setVisible(true);
 
@@ -449,7 +441,6 @@ public class TOPS implements KeyListener {
 		write_btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String fileName = myID + "_" + getTime();
-				// File f = new File(dirPath + fileName);
 
 				try {
 					File IDFile = new File(myFolderPath
@@ -518,7 +509,6 @@ public class TOPS implements KeyListener {
 		JScrollPane scrollPane = new JScrollPane();
 		horizontalBox_2.add(scrollPane);
 
-		// JList mainList = new JList();
 		scrollPane.setViewportView(mainList);
 
 		JPanel two = new JPanel();
@@ -529,7 +519,6 @@ public class TOPS implements KeyListener {
 		two.add(scrollPane_2);
 		myList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-		// JList myList = new JList();
 		scrollPane_2.setViewportView(myList);
 
 		JPanel panel = new JPanel();
@@ -561,8 +550,6 @@ public class TOPS implements KeyListener {
 								+ myID);
 				LS.setList(mainList, myFolderPath);
 
-				// Client c = new Client(false);
-//				Client.CallAdvertisement_UPDATE();
 				TOPS.top_client.sendMessage("'dm_AdvUpdate'");
 
 			}
@@ -694,7 +681,7 @@ public class TOPS implements KeyListener {
 		}
 		String temp = myID + "_" + "UpdateFile" + "_";
 		int ver = Integer.valueOf(myUpdateFile[0].getName().substring(
-				temp.length())); // //////////////////////////////////////////////////////////////////////
+				temp.length())); // 
 		ver++;
 
 		File oldUpdateFile = new File(myUpdateFile[0].getPath());

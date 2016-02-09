@@ -94,7 +94,6 @@ public class PictureDirectoryTree implements TreeWillExpandListener, TreeSelecti
 	public void treeWillExpand(TreeExpansionEvent e)
 			throws ExpandVetoException {
 		// TODO Auto-generated method stub
-				//JTree t = null;
 				if (e.getSource() == tree) {
 					
 					tree.setSelectionPath(e.getPath());

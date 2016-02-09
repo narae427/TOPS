@@ -82,7 +82,6 @@ public class ListCell extends JPanel implements ListCellRenderer<Object>{
 	    
 	    textLabel.setAutoscrolls(false);
 	    textLabel.setEditable(false);
-	    //verticalBox.add(textLabel);
 	    textLabel.setOpaque(false);/*이거중요*/	
 	
 	  }
@@ -118,7 +117,6 @@ public class ListCell extends JPanel implements ListCellRenderer<Object>{
 		  
 		  String DT = year + "년 " + month + "월 " + day + "일 " + ampm + " " + hour + "시 " + min + "분";
 		  dateLabel.setText(DT);
-		 // textLabel.setText((value==null)?"":value.toString());
 		  	      
 	    if(isSelected) {
 	      setBackground(list.getSelectionBackground());

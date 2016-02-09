@@ -19,7 +19,6 @@ public class FreindDirectoryTree implements TreeWillExpandListener,
 	JTree tree = null;
 	DefaultMutableTreeNode root = null;
 	String rootPath = null;
-//	int myPortNumber = 0;
 	ListSetting LS = null;
 	JList<?> list = null;
 
@@ -28,7 +27,6 @@ public class FreindDirectoryTree implements TreeWillExpandListener,
 		this.tree = tree;
 		this.root = root;
 		this.rootPath = rootPath;
-//		this.myPortNumber = TOPS.myPublicPN;
 		this.list = list;
 	}
 
@@ -53,8 +51,6 @@ public class FreindDirectoryTree implements TreeWillExpandListener,
 			if (dirs[i].isDirectory()) {
 				DefaultMutableTreeNode dmt = new DefaultMutableTreeNode(
 						dirs[i].getName());
-				// dmt.add(new DefaultMutableTreeNode("EMPTY"));
-				// dmt.setAllowsChildren(true);
 				root.add(dmt);
 
 			}
@@ -71,7 +67,7 @@ public class FreindDirectoryTree implements TreeWillExpandListener,
 		String path = null;
 		int pathCount = t.getSelectionPath().getPathCount();
 
-		if (pathCount == 1) { // 猷⑦�����곕━
+		if (pathCount == 1) { 
 			path = rootPath;
 		} else {
 			String parent = t.getSelectionPath().getParentPath()
@@ -96,7 +92,6 @@ public class FreindDirectoryTree implements TreeWillExpandListener,
 	@Override
 	public void treeWillExpand(TreeExpansionEvent e) throws ExpandVetoException {
 		// TODO Auto-generated method stub
-		// JTree t = null;
 		if (e.getSource() == tree) {
 
 			tree.setSelectionPath(e.getPath());

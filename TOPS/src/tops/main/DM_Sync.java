@@ -30,7 +30,6 @@ public class DM_Sync {
 	}
 
 	public void DoSynchronize_Recieve() throws IOException {
-		//System.out.println("................................................................DM_Sync DoSynchronize_Recieve");
 		DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 		DataInputStream dis = new DataInputStream(socket.getInputStream());
 		FileOutputStream fos = null;
@@ -123,7 +122,6 @@ public class DM_Sync {
 	}
 
 	public void sendFiles(File[] files) throws IOException {
-		//System.out.println("................................................................DM_Sync SendFiles");
 
 		for (File f : files) {
 			if (f.isDirectory()) {
@@ -165,7 +163,6 @@ public class DM_Sync {
 	}
 
 	public void DoSynchronize_Send() throws IOException {
-		//System.out.println("................................................................DM_Sync DoSynchronize_Send");
 		File dmPath = new File(TOPS.myFolderPath);
 		File[] dmFile = null;
 		dmFile = dmPath.listFiles();
